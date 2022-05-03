@@ -12,5 +12,26 @@
     "mongoose": "^6.2.9",
     "path": "^0.12.7",
     "validator": "^13.7.0"
+  },
+  "name": "calendar",
+  "description": "admin login: aa@aa.com heslo: aaaaaaa\r běžný uživatel login: bb@bb.com heslo: aaaaaaa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wenceslas12/Calendar-TjStart.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wenceslas12/Calendar-TjStart/issues"
+  },
+  "homepage": "https://github.com/wenceslas12/Calendar-TjStart#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }
