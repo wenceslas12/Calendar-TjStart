@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+
+    <title>Tj Start RK - Calendář</title>
+</head>
+<body>
+
+<main id="content">
+    {{>header}}
+    <form action="user/update?_method=PATCH" method="POST">
+
+        <label for="name">Jméno:</label><br>
+        <input type="text" name="name" id="name" placeholder="jméno" required value="{{user.name}}">
+        <br><br>
+
+        <label for="email">Login (email):</label><br>
+        <input type="email" name="email" id="email" placeholder="email" required value="{{user.email}}">
+        <br><br>
+
+        <label for="member">Člen:</label><br>
+        <select name="member" id="member" required>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select>
+        <label for="role">Role</label>
+        <select name="role" id="role" required>
+            <option value="1">Uživatel</option>
+            <option value="2">Administrator</option>
+        </select>
+        <!--    <input type="text" name="member" id="member" placeholder="Člen" required>-->
+        <br><br>
+
+        <label for="password">Heslo:</label><br>
+        <input type="password" name="password" id="password"  required>
+        <br><br>
+        <button type="submit">aktualizovat uživatele </button>
+    </form>
+    <a id="zpet-button" href="/addNewUser"><button>Zpět</button></a>
+</main>
+
+{{>footer}}
+<script>
+    function myFunction() {
+        console.log("AAAAAAAAAAA");
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../style/style.css">
+
+    <title>Tj Start RK - Calendář</title>
+</head>
+<body>
+{{>header_not_admin}}
+
+<form action="/updateUser/update?_method=PATCH" method="POST">
+
+    <label for="name">Jméno:</label><br>
+    <input type="text" name="name" id="name" placeholder="jméno" required value="{{user.name}}">
+    <br><br>
+
+    <label for="email">Login (email):</label><br>
+    <input type="email" name="email" id="email" placeholder="email" required value="{{user.email}}">
+    <br><br>
+    <label for="password">Heslo:</label><br>
+    <input type="password" name="password" id="password"  required >
+    <br><br>
+    <button type="submit">aktualizovat</button>
+</form>
+{{>footer}}
+<script>
+    function myFunction() {
+        console.log("AAAAAAAAAAA");
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    };
+</script>
+</body>

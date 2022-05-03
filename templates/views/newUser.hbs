@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+
+    <title>Tj Start RK - Calendář</title>
+</head>
+<body>
+{{>header}}
+
+<form action="/addNewUser" method="POST">
+
+    <label for="name">Jméno:</label><br>
+    <input type="text" name="name" id="name" placeholder="jméno" required>
+    <br><br>
+
+    <label for="email">Login (email):</label><br>
+    <input type="email" name="email" id="email" placeholder="email" required>
+    <br><br>
+
+    <label for="member">Člen:</label><br>
+    <select name="member" id="member" required>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+    </select>
+    <label for="role">Role</label>
+    <select name="role" id="role" required>
+        <option value="1">Uživatel</option>
+        <option value="2">Administrator</option>
+    </select>
+<!--    <input type="text" name="member" id="member" placeholder="Člen" required>-->
+    <br><br>
+
+    <label for="password">Heslo:</label><br>
+    <input type="password" name="password" id="password"  required>
+    <br><br>
+
+    <button type="submit">Přidat nového uživatele</button>
+</form>
+<table id="events_table">
+    <tr>
+        <th>Jméno</th>
+        <th>Email</th>
+        <th>Team</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {{#each users}}
+        <tr>
+            <td id=this.id>
+                {{this.name}}
+            </td>
+            <td>
+                {{this.email}}
+            </td>
+            <td>
+                {{this.member}}
+            </td>
+            <td id="update_table">
+                <a id="update_table" href="/{{this.id}}/update">Upravit</a>
+            </td>
+            <td id="delete-table">
+                <a id="delete-table" href="/{{this.id}}/delete">Odstranit</a>
+            </td>
+        </tr>
+    {{/each}}
+</table>
+{{>footer}}
+<script>
+    function myFunction() {
+        console.log("AAAAAAAAAAA");
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    };
+</script>
+</body>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style/loginForm.css">
+    <title>Tj Start RK - Calendář</title>
+</head>
+<!-- partial:index.partial.html -->
+<div id="login-form-wrap">
+    <h2>Login</h2>
+    <form id="login-form" action="/users" method="POST">
+        <p>
+            <input type="email" id="email" name="email" placeholder="Email Address" required><i class="validation"><span></span><span></span></i>
+        </p>
+        <p>
+            <input type="password" id="password" name="password" placeholder="password" required><i class="validation"><span></span><span></span></i>
+        </p>
+        <p>
+            <input type="submit" id="login" value="Login">
+        </p>
+        <a href="/register">Registrovat se</a>
+    </form>
+
+</div><!--login-form-wrap-->
+<!-- partial -->
+
+</body>
+{{>footer}}
+</html>

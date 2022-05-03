@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../style/style.css">
+
+    <title>Tj Start RK - Calendář</title>
+</head>
+<body>
+
+<main id="content">
+
+
+    <div id="message_delete">
+    <form action="event/delete?_method=DELETE" method="post">
+        <p>{{message}} </p>
+        <!--        <input type="hidden" id="form-control" name="id" required="true" value={{user._id}}>-->
+        <button type="submit">Smazat</button>
+  </form>
+        <a id="zpet-button" href="/events/create"><button>Zpět</button></a>
+    </div>
+</main>
+
+{{>footer}}
+<script>
+    function myFunction() {
+        console.log("AAAAAAAAAAA");
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    };
+</script>
+
+</body>
+</html>
