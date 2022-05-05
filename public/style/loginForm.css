@@ -2,7 +2,6 @@ body {
     background-color: #BCD5E8;
     font-size: 1.6rem;
     font-family: "Open Sans", sans-serif;
-    /*color: #2b3e51;*/
 }
 
 h2 {
@@ -147,12 +146,8 @@ input[type="submit"]:hover {
     transition: all 0.2s ease;
 }
 footer {
-    /*position: absolute;*/
-    /*bottom:0;*/
-    /*width:100%;*/
     background-color: #ddd;
     text-align: center;
     padding: 2px;
-    /*margin:0px;*/
 }
 

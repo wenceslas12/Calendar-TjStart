@@ -12,18 +12,21 @@
 <main id="content">
     {{>header}}
     <form action="" method="post">
-        <label for="description">Název akce</label><br>
-        <textarea name="description" id="description" cols="10" rows="3" required
-                  placeholder="Zadejte název akce ">{{task.description}}</textarea>
-        <!--        <textarea name="start" id="start" cols="15" rows="3" required placeholder="Zadejte začátek">{{task.start}}</textarea>-->
-
+        <h2>Nová akce</h2>
+        <br>
+        <label for="description">Název akce:</label> <br>
+        <input type="text" name="description" id="description"  required
+                  placeholder="Zadejte název akce ">
+        <br>
         <div>
-            <label>Start</label>
+            <label>Start:</label> <br>
             <input type="datetime-local" id="start" name="start" required>
-            <label>Konec</label>
+            <br>
+            <label>Konec:</label> <br>
             <input type="datetime-local" id="end" name="end" required>
+            <br>
         </div>
-        <button type="submit">{{buttonComand}}</button>
+        <button type="submit">Uložit</button>
     </form>
     <div id="table-list">
     <table id="events_table">
@@ -61,7 +64,6 @@
 </body>
 <script>
     function myFunction() {
-        console.log("AAAAAAAAAAA");
         var x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
             x.className += " responsive";

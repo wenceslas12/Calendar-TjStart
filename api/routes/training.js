@@ -3,35 +3,39 @@ const Training = require('../models/training');
 const authenticate = require('../../src/middleware/authenticate');
 const User = require('../models/user');
 const router = new express.Router()
-
+//TODO konec nemuže být dříve než začátek
 //vykresleni formulře pro vytvoření treninku
-router.get('/training/create', authenticate, async (req,res) =>{
+router.get('/training/create', authenticate, async (req, res) => {
     const userID = {_id: req.session.user_id};
     const userRole = await User.findOne(userID, 'role');
-    const search_data = { owner: req.session.user_id};
+    const search_data = {owner: req.session.user_id};
     const training = await Training.find(search_data);
     if (!training) {
         res.status(500).send()
     }
-    if(userRole.role === 2){
-        res.render('trainingAdd-admin.hbs',{
-            training:training
+    if (userRole.role === 2) {
+
+        res.render('trainingAdd-admin.hbs', {
+            training:  dateParse(training)
         });
-    } if(userRole.role === 1){
-        res.render('trainingAdd.hbs',{
-        training:training
-    });}
+    }
+    if (userRole.role === 1) {
+
+        res.render('trainingAdd.hbs', {
+            training: training
+        });
+    }
 
 });
 
 //vytvoření treninku
-router.post('/training/create', authenticate,async (req,res) => {
+router.post('/training/create', authenticate, async (req, res) => {
     const user_id = req.session.user_id;
-    const user = await User.findOne({_id:req.session.user_id}, 'name');
+    const user = await User.findOne({_id: req.session.user_id}, 'name');
     const {start, end} = req.body;
     const training = new Training({
         title: "Trenink: " + user.name,
-        start:start,
+        start: start,
         end: end,
         owner: user_id
     })
@@ -39,42 +43,53 @@ router.post('/training/create', authenticate,async (req,res) => {
         await training.save();
         res.status(201);
         res.redirect('/training/create');
-    }catch (e) {
+    } catch (e) {
         res.status(400).send(e);
     }
 });
 
-router.get('/:id/training/delete',authenticate,async (req,res) =>{
-    const delete_training_id = {_id: req.params.id ,owner: req.session.user_id };
+router.get('/:id/training/delete', authenticate, async (req, res) => {
+    const delete_training_id = {_id: req.params.id, owner: req.session.user_id};
     try {
         const training = await Training.findOne(delete_training_id);
-        if(!training){
+        if (!training) {
             return res.redirect('/training/create');
         }
-        res.render('training_delete.hbs',{
-            message:'Opravdu chete zmazat tento traning se začátkem: ' + training.start  + ' a koncem: ' + training.end,
+        res.render('training_delete.hbs', {
+            message: 'Opravdu chete zmazat tento traning se začátkem: ' + training.start + ' a koncem: ' + training.end,
             training: training,
         })
-    }catch (e){
+    } catch (e) {
         res.status(500).send();
     }
 });
 
-router.delete('/:id/training/delete', authenticate,async (req,res)=>{
+router.delete('/:id/training/delete', authenticate, async (req, res) => {
     const delete_training_id = {_id: req.params.id, owner: req.session.user_id};
     try {
         const training = await Training.findOneAndDelete(delete_training_id);
-        if (!training){
+        if (!training) {
             return res.status(404).send()
         }
         res.redirect('/events/create');
-    }catch (e){
+    } catch (e) {
         res.status(500).send();
     }
 });
-router.get('/*', (req,res) =>{
+router.get('/*', (req, res) => {
     res.render('404.hbs', {
-    title: 'Chyba 404: stránka nenalezena'
-})});
+        title: 'Chyba 404: stránka nenalezena'
+    })
+});
 module.exports = router;
 
+const dateParse = (trainings) => {
+    for (let i = 0; i < trainings.length; i++){
+        const startArray = trainings[i].start.split("T");
+        trainings[i].start =startArray[0] + ' ' + startArray[1];
+        const endArray = trainings[i].end.split("T");
+        trainings[i].end =endArray[0] + ' ' + endArray[1];
+    }
+    console.log(trainings);
+    return trainings;
+}

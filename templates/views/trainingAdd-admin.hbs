@@ -12,18 +12,24 @@
 <main id="content">
     {{>header}}
     <form action="" method="post">
-        <label>Start</label>
+        <h2>Nový trénink</h2>
+        <br>
+        <label>Start:  </label>
+        <br>
         <input type="datetime-local" id="start" name="start" required>
-        <label>Konec</label>
+        <br>
+        <label>Konec:</label>
+        <br>
         <input type="datetime-local" id="end" name="end" required>
+        <br>
         </div>
         <button type="submit">Uložit</button>
     </form>
     <div id="table-list">
         <table id="events_table">
             <tr>
-                <th>Začátek</th>
-                <th>Konec</th>
+                <th style="width:40%">Začátek</th>
+                <th style="width:40%">Konec</th>
                 <th></th>
             </tr>
             {{#each training}}
@@ -47,7 +53,6 @@
 </body>
 <script>
     function myFunction() {
-        console.log("AAAAAAAAAAA");
         var x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
             x.className += " responsive";
