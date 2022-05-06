@@ -139,11 +139,16 @@ input[type="submit"] {
     display: inline-block;
     cursor: pointer;
     text-align: center;
+    margin-bottom: 15px;
 }
 input[type="submit"]:hover {
     background-color: #329dd5;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
+}
+#p-errorMessage{
+    color:red;
+    font-weight: bold;
 }
 footer {
     background-color: #ddd;

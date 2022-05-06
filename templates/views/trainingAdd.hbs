@@ -12,18 +12,25 @@
 <main id="content">
     {{>header_not_admin}}
     <form action="" method="post">
-            <label>Start</label>
-            <input type="datetime-local" id="start" name="start" required>
-            <label>Konec</label>
-            <input type="datetime-local" id="end" name="end" required>
+        <h2>Nový trénink</h2>
+        <br>
+        <p id="p-errorMessage">{{message}}</p>
+        <label>Start: </label>
+        <br>
+        <input type="datetime-local" id="start" name="start" required>
+        <br>
+        <label>Konec:</label>
+        <br>
+        <input type="datetime-local" id="end" name="end" required>
+        <br>
         </div>
         <button type="submit">Uložit</button>
     </form>
     <div id="table-list">
         <table id="events_table">
             <tr>
-                <th>Začátek</th>
-                <th>Konec</th>
+                <th id="th-training">Začátek</th>
+                <th id="th-training">Konec</th>
                 <th></th>
             </tr>
             {{#each training}}

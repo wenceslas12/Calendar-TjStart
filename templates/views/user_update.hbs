@@ -13,32 +13,32 @@
 <main id="content">
     {{>header}}
     <form action="user/update?_method=PATCH" method="POST">
+        <h2>{{user.name}}</h2><br>
 
         <label for="name">Jméno:</label><br>
         <input type="text" name="name" id="name" placeholder="jméno" required value="{{user.name}}">
-        <br><br>
+        <br>
 
         <label for="email">Login (email):</label><br>
         <input type="email" name="email" id="email" placeholder="email" required value="{{user.email}}">
-        <br><br>
+        <br>
 
         <label for="member">Člen:</label><br>
         <select name="member" id="member" required>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>
-        </select>
-        <label for="role">Role</label>
+        </select><br>
+        <label for="role">Role</label><br>
         <select name="role" id="role" required>
             <option value="1">Uživatel</option>
             <option value="2">Administrator</option>
         </select>
-        <!--    <input type="text" name="member" id="member" placeholder="Člen" required>-->
-        <br><br>
+        <br>
 
         <label for="password">Heslo:</label><br>
         <input type="password" name="password" id="password"  required>
-        <br><br>
+        <br>
         <button type="submit">aktualizovat uživatele </button>
     </form>
     <a id="zpet-button" href="/addNewUser"><button>Zpět</button></a>
@@ -47,7 +47,6 @@
 {{>footer}}
 <script>
     function myFunction() {
-        console.log("AAAAAAAAAAA");
         var x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
             x.className += " responsive";

@@ -12,17 +12,21 @@
 <main id="content">
     {{>header}}
     <form action="event/update?_method=PATCH" method="POST">
-        <label for="description">Název akce</label><br>
-        <textarea name="title" id="title"  cols="15" rows="3" required  placeholder="Zadejte název akce">{{event.title}}</textarea>
-        <!--        <textarea name="start" id="start" cols="15" rows="3" required placeholder="Zadejte začátek">{{task.start}}</textarea>-->
-
+        <h2>{{event.title}}</h2>
+        <br>
+        <label for="description">Název akce:</label> <br>
+        <input type="text" name="title" id="title"  required
+               value="{{event.title}}">
+        <br>
         <div>
-            <label>Start</label>
+            <label>Start:</label> <br>
             <input type="datetime-local" id="start" name="start" required value="{{event.start}}">
-            <label>Konec</label>
+            <br>
+            <label>Konec:</label> <br>
             <input type="datetime-local" id="end" name="end" required value="{{event.end}}">
+            <br>
         </div>
-        <button type="submit">{{buttonComand}}</button>
+        <button type="submit">Aktualizovat</button>
     </form>
     <a  id="zpet-button" href="/events/create"><button>Zpět</button></a>
 </main>
@@ -31,7 +35,6 @@
 </body>
 <script>
     function myFunction() {
-        console.log("AAAAAAAAAAA");
         var x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
             x.className += " responsive";

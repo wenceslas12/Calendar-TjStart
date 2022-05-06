@@ -14,32 +14,41 @@ table, tr, th, td {
     padding: .2em .5em;
     text-align: center;
 }
-table{
-    width:100%;
-    margin-top:15px;
+
+table {
+    width: 100%;
+    margin-top: 15px;
 }
 
-th{
+th {
     background-color: #147ECF;
-    color:#ffffff;
+    color: #ffffff;
 }
-#in{
+
+#th-training {
+    width: 45%;
+}
+
+#in {
     background-color: #ffffff;
     border: #333 1px solid;
     border-collapse: collapse;
 
 }
-#update_table{
+
+#update_table {
     background-color: #147ECF;
-    color:#ffffff;
+    color: #ffffff;
     text-decoration: none;
 }
-#delete-table{
+
+#delete-table {
     background-color: #c94c4c;
-    color:#ffffff;
+    color: #ffffff;
     text-decoration: none;
 }
-#table-list{
+
+#table-list {
     overflow-x: auto;
 }
 
@@ -51,8 +60,8 @@ main {
 .topnav {
     overflow: hidden;
     background-color: #147ECF;
-    border:3px;
-    margin-bottom:15px;
+    border: 3px;
+    margin-bottom: 15px;
 }
 
 .topnav a {
@@ -80,7 +89,10 @@ main {
 }
 
 @media screen and (max-width: 600px) {
-    .topnav a:not(:first-child) {display: none;}
+    .topnav a:not(:first-child) {
+        display: none;
+    }
+
     .topnav a.icon {
         float: right;
         display: block;
@@ -88,12 +100,16 @@ main {
 }
 
 @media screen and (max-width: 600px) {
-    .topnav.responsive {position: relative;}
+    .topnav.responsive {
+        position: relative;
+    }
+
     .topnav.responsive .icon {
         position: absolute;
         right: 0;
         top: 0;
     }
+
     .topnav.responsive a {
         float: none;
         display: block;
@@ -105,25 +121,25 @@ main {
 a.link-as-button {
     display: inline-block;
 }
+
 button, a.link-as-button {
     height: 40px;
-    background: linear-gradient(to bottom, #4eb5e5 0%,#389ed5 100%); /* W3C */
+    background: linear-gradient(to bottom, #4eb5e5 0%, #389ed5 100%); /* W3C */
     border: none;
     border-radius: 5px;
     border-bottom: 4px solid #2b8bc6;
     color: #fbfbfb;
     font-weight: 600;
     font-family: 'Open Sans', sans-serif;
-    text-shadow: 1px 1px 1px rgba(0,0,0,.4);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
     font-size: 15px;
     text-align: left;
     text-indent: 5px;
-    box-shadow: 0px 3px 0px 0px rgba(0,0,0,.2);
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, .2);
     cursor: pointer;
     margin: 0 auto;
     margin-bottom: 20px;
     margin-top: 20px;
-
     padding-right: 15px;
 
 }
@@ -139,13 +155,15 @@ a.link-as-button {
 }
 
 button:active, a.link-as-button:active {
-    box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, .2);
     top: 1px;
 }
-.zpet-button{
+
+.zpet-button {
     background-color: #c94c4c;
-    color:#ffffff;
+    color: #ffffff;
 }
+
 h1 {
     font-size: 2.5em;
     font-weight: 400;
@@ -163,27 +181,18 @@ form {
     padding: 20px 0 0 0;
     border-radius: 4px;
     box-shadow: 0px 30px 50px 0px rgba(29, 58, 231, 0.2);
-
-    /*display:table;*/
-    /*margin:auto;*/
-    /*padding: 10px;*/
-    /*padding-left: 25px;*/
-    /*padding-right: 25px;*/
-    /*background-color: #ffffff;*/
 }
 
-label{
+label {
     padding: 5px;
     font-weight: bold;
     font-size: 20px;
     margin: 5px;
     text-align: left;
     display: inline-block;
-    /*float: left;*/
-    /*clear: left;*/
-
 }
-input{
+
+input {
     width: 50%;
     padding: 0 0 0 10px;
     margin: 5px;
@@ -194,13 +203,20 @@ input{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    position:  relative;
-    /*display: inline-block;*/
+    position: relative;
     background: none;
     line-height: 30px;
-
 }
-select{
+
+#start, #end {
+    text-align: center;
+}
+#p-errorMessage{
+    color:red;
+    font-weight:bold;
+}
+
+select {
     width: 50%;
     padding: 0 0 0 10px;
     margin: 10px;
@@ -209,13 +225,11 @@ select{
     font-style: normal;
     font-size: 16px;
     appearance: menulist-button;
-    position:  relative;
-    /*display: inline-block;*/
+    position: relative;
     background: none;
     line-height: 30px;
-
-
 }
+
 textarea {
     width: 100%;
     padding: 12px;
@@ -227,26 +241,31 @@ textarea {
     resize: vertical;
     height: 50px;
 }
-#form-h2{
+
+#form-h2 {
     margin-top: 0px;
     font-size: 40px;
 }
+
 footer {
     background-color: #ddd;
     text-align: center;
     padding: 2px;
 }
-#calendar{
+
+#calendar {
     background-color: #ffffff;
     overflow: hidden;
     border: 1px solid #ccc;
     padding: 12px;
 }
-.message_delete{
-    width:800px;
-    margin:0 auto;
+
+.message_delete {
+    width: 800px;
+    margin: 0 auto;
 }
-h1{
+
+h1 {
     color: #000000;
 }
 

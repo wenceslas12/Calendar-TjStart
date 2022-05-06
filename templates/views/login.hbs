@@ -7,9 +7,9 @@
     <link rel="stylesheet" type="text/css" href="style/loginForm.css">
     <title>Tj Start RK - Calendář</title>
 </head>
-<!-- partial:index.partial.html -->
 <div id="login-form-wrap">
     <h2>Login</h2>
+    <p id="p-errorMessage">{{message}}</p>
     <form id="login-form" action="/users" method="POST">
         <p>
             <input type="email" id="email" name="email" placeholder="Email Address" required><i class="validation"><span></span><span></span></i>
@@ -20,12 +20,9 @@
         <p>
             <input type="submit" id="login" value="Login">
         </p>
-        <a href="/register">Registrovat se</a>
     </form>
 
-</div><!--login-form-wrap-->
-<!-- partial -->
-
+</div>
 </body>
 {{>footer}}
 </html>

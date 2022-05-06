@@ -6,23 +6,23 @@ const authenticate = require('../../src/middleware/authenticate');
 const Training = require('../models/training');
 const bcrypt = require("bcryptjs");
 
-router.get('/register', (req, res) => {
-    res.render('register.hbs');
-});
-//  registrování uživatele
-router.post('/register', async (req, res) => {
-    const {name, email, password, member} = req.body
-    const role = 1;
-    const user = new User({name, email, password, member, role})
-    try {
-        await user.save()
-        res.status(201)
-        res.redirect('/users')
-    } catch (e) {
-        res.status(400)
-        res.redirect('/register')
-    }
-})
+// router.get('/register', (req, res) => {
+//     res.render('register.hbs');
+// });
+// //  registrování uživatele
+// router.post('/register', async (req, res) => {
+//     const {name, email, password, member} = req.body
+//     const role = 1;
+//     const user = new User({name, email, password, member, role})
+//     try {
+//         await user.save()
+//         res.status(201)
+//         res.redirect('/users')
+//     } catch (e) {
+//         res.status(400)
+//         res.redirect('/register')
+//     }
+// })
 
 router.get('/', authenticate, async (req, res, next) => {
     const events = await Events.find({}, {_id: 0, title: 1, start: 1, end: 1})
@@ -141,7 +141,8 @@ router.patch('/updateUser/update', authenticate, async (req, res) => {
 //login formulř
 router.get('/users', (req, res) => {
     res.render('login.hbs', {
-        title: 'Přihlášení uživatele'
+        title: 'Přihlášení uživatele',
+        message:''
     });
 });
 //přihlašení uživatele
@@ -151,9 +152,11 @@ router.post('/users', async (req, res) => {
         const foundUser = await User.findByCredentials(email, password);
         if (!foundUser) {
             res.status(400);
-            return res.redirect('/users');
+            return res.render('login.hbs', {
+                title: 'Přihlášení uživatele',
+                message:'Email nebo heslo jsou nesprávné'
+            });
         }
-        // console.log(foundUser);
         req.session.user_id = foundUser._id;
         res.status(200);
         res.redirect('/');

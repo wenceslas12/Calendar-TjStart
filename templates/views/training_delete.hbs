@@ -14,8 +14,7 @@
 
 
     <form action="/{{training._id}}/training/delete?_method=DELETE" method="post">
-        <p>{{message}}  {{training._id}}</p>
-        <!--        <input type="hidden" id="form-control" name="id" required="true" value={{training._id}}>-->
+        <p>{{message}} </p>
         <button type="submit">Smazat</button>
 
     </form>
@@ -26,7 +25,6 @@
 
 <script>
     function myFunction() {
-        console.log("AAAAAAAAAAA");
         var x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
             x.className += " responsive";

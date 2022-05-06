@@ -8,7 +8,6 @@ const User = require('../models/user');
 router.get('/events/create', authenticate, async (req, res, next) => {
     const userID = {_id: req.session.user_id};
     const user = await User.findOne(userID, 'role');
-
     if (user.role === 2) {
         Event.find({}, {})
             .exec((err, list_Event) => {
@@ -28,7 +27,8 @@ router.get('/events/create', authenticate, async (req, res, next) => {
 
                 res.render('events-form.hbs', {
                     title: 'vytvoření akce',
-                    buttonComand: "Vytvořit", events: list_Event
+                    buttonComand: "Vytvořit", events: dateParseEvents(list_Event),
+                    message:''
                 })
             })
     }
@@ -37,10 +37,11 @@ router.get('/events/create', authenticate, async (req, res, next) => {
     }
 });
 
-router.post('/events/create', (req, res,next) => {
+router.post('/events/create',authenticate, async (req, res,next) => {
     const description = req.body.description;
     const start = req.body.start;
     const end = req.body.end;
+if(start<end){
     const event = new Event({
         title: description, start: start, end: end
     })
@@ -51,6 +52,34 @@ router.post('/events/create', (req, res,next) => {
         }
         res.redirect('/events/create');
     })
+}else{
+    const userID = {_id: req.session.user_id};
+    const user = await User.findOne(userID, 'role');
+    if (user.role === 2) {
+        Event.find({}, {})
+            .exec((err, list_Event) => {
+                if (err) {
+                    return next(err);
+                }
+                //seřazení eventů podle datumu
+                list_Event.sort(function (a, b) {
+                    if (a.start < b.start) {
+                        return -1;
+                    }
+                    if (a.start > b.start) {
+                        return 1;
+                    }
+                    return 0;
+                });
+
+                res.render('events-form.hbs', {
+                    title: 'vytvoření akce',
+                    buttonComand: "Vytvořit", events: list_Event,
+                    message:'Konec nemuže být dříve než začátek'
+                })
+            })
+    }
+}
 });
 
 //formulař pro vymazání eventu
@@ -58,6 +87,7 @@ router.get('/event/:id/delete',authenticate,async (req,res) =>{
     const userID = {_id: req.session.user_id};
     const userRole = await User.findOne(userID, 'role');
     const delete_event_id = {_id: req.params.id};
+
     try {
         const event = await Event.findOne(delete_event_id);
         if(!event){
@@ -103,7 +133,8 @@ router.get('/event/:id/update',authenticate,async (req,res) =>{
         }
         if(userRole.role === 2){ res.render('events_update.hbs',{
             event: event,
-            buttonComand:'aktualizovat'
+            buttonComand:'aktualizovat',
+            message:''
         })
         }if(userRole.role === 1){
             res.render('notPermission.hbs', {});
@@ -127,6 +158,14 @@ router.patch('/event/:id/event/update',authenticate,async (req,res) =>{
         res.status(500).send();
     }
 });
-
+const dateParseEvents = (events) => {
+    for (let i = 0; i < events.length; i++) {
+        const startArray = events[i].start.split("T");
+        events[i].start = startArray[0] + ' ' + startArray[1];
+        const endArray = events[i].end.split("T");
+        events[i].end = endArray[0] + ' ' + endArray[1];
+    }
+    return events;
+}
 
 module.exports = router;

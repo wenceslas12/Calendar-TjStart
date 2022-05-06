@@ -13,6 +13,8 @@
 
 <form action="/updateUser/update?_method=PATCH" method="POST">
 
+    <h2>Můj účet</h2>
+
     <label for="name">Jméno:</label><br>
     <input type="text" name="name" id="name" placeholder="jméno" required value="{{user.name}}">
     <br><br>
@@ -28,7 +30,6 @@
 {{>footer}}
 <script>
     function myFunction() {
-        console.log("AAAAAAAAAAA");
         var x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
             x.className += " responsive";

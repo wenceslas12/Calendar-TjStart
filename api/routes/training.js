@@ -3,26 +3,35 @@ const Training = require('../models/training');
 const authenticate = require('../../src/middleware/authenticate');
 const User = require('../models/user');
 const router = new express.Router()
-//TODO konec nemuže být dříve než začátek
 //vykresleni formulře pro vytvoření treninku
 router.get('/training/create', authenticate, async (req, res) => {
     const userID = {_id: req.session.user_id};
     const userRole = await User.findOne(userID, 'role');
-    const search_data = {owner: req.session.user_id};
-    const training = await Training.find(search_data);
+    const training =await searchTraining(userID);
     if (!training) {
         res.status(500).send()
     }
+    training.sort(function (a, b) {
+        if (a.start < b.start) {
+            return -1;
+        }
+        if (a.start > b.start) {
+            return 1;
+        }
+        return 0;
+    });
     if (userRole.role === 2) {
 
         res.render('trainingAdd-admin.hbs', {
-            training:  dateParse(training)
+            training: dateParseTrainings(training),
+            message:''
         });
     }
     if (userRole.role === 1) {
 
         res.render('trainingAdd.hbs', {
-            training: training
+            training: dateParseTrainings(training),
+            message:''
         });
     }
 
@@ -33,18 +42,51 @@ router.post('/training/create', authenticate, async (req, res) => {
     const user_id = req.session.user_id;
     const user = await User.findOne({_id: req.session.user_id}, 'name');
     const {start, end} = req.body;
-    const training = new Training({
-        title: "Trenink: " + user.name,
-        start: start,
-        end: end,
-        owner: user_id
-    })
-    try {
-        await training.save();
-        res.status(201);
-        res.redirect('/training/create');
-    } catch (e) {
-        res.status(400).send(e);
+    if (start < end) {
+        const training = new Training({
+            title: "Trenink: " + user.name,
+            start: start,
+            end: end,
+            owner: user_id
+        })
+        try {
+            await training.save();
+            res.status(201);
+            res.redirect('/training/create');
+        } catch (e) {
+            res.status(400).send(e);
+        }
+    }
+    else{
+        const userID = {_id: req.session.user_id};
+        const userRole = await User.findOne(userID, 'role');
+        const training =await searchTraining(userID);
+        if (!training) {
+            res.status(500).send()
+        }
+        training.sort(function (a, b) {
+            if (a.start < b.start) {
+                return -1;
+            }
+            if (a.start > b.start) {
+                return 1;
+            }
+            return 0;
+        });
+        if (userRole.role === 2) {
+
+            res.render('trainingAdd-admin.hbs', {
+                training: dateParseTrainings(training),
+                message:'Konec nemuže být dříve než začátek'
+            });
+        }
+        if (userRole.role === 1) {
+
+            res.render('trainingAdd.hbs', {
+                training: dateParseTrainings(training),
+                message:'Konec nemuže být dříve než začátek'
+            });
+        }
     }
 });
 
@@ -56,7 +98,7 @@ router.get('/:id/training/delete', authenticate, async (req, res) => {
             return res.redirect('/training/create');
         }
         res.render('training_delete.hbs', {
-            message: 'Opravdu chete zmazat tento traning se začátkem: ' + training.start + ' a koncem: ' + training.end,
+            message: deleteMessageTraining(training),
             training: training,
         })
     } catch (e) {
@@ -83,13 +125,22 @@ router.get('/*', (req, res) => {
 });
 module.exports = router;
 
-const dateParse = (trainings) => {
-    for (let i = 0; i < trainings.length; i++){
+const dateParseTrainings = (trainings) => {
+    for (let i = 0; i < trainings.length; i++) {
         const startArray = trainings[i].start.split("T");
-        trainings[i].start =startArray[0] + ' ' + startArray[1];
+        trainings[i].start = startArray[0] + ' ' + startArray[1];
         const endArray = trainings[i].end.split("T");
-        trainings[i].end =endArray[0] + ' ' + endArray[1];
+        trainings[i].end = endArray[0] + ' ' + endArray[1];
     }
-    console.log(trainings);
     return trainings;
+}
+const deleteMessageTraining = (training) => {
+    const startArray = training.start.split("T");
+    const endArray = training.end.split("T");
+    return 'Opravdu chete zmazat tento traning se začátkem: ' + startArray[0] + ' ' + startArray[1] + ' a koncem: ' + endArray[0] + ' ' + endArray[1];
+}
+
+async function searchTraining  (userID) {
+    const search_data = {owner: userID};
+    return Training.find(search_data);
 }

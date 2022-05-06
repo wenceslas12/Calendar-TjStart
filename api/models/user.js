@@ -51,17 +51,17 @@ UserSchema.virtual('tasks', {
 })
 
 UserSchema.statics.findByCredentials = async (email, password) => {
-    console.log(`Hledám email ${email}, mám heslo ${password}`)
+    // console.log(`Hledám email ${email}, mám heslo ${password}`)
     const user = await User.findOne({email})
     if (!user) {
-        const error = 'Přihlášení selhalo - uživatel nenalezen'
-        console.log(error)
+        // const error = 'Přihlášení selhalo - uživatel nenalezen'
+        // console.log(error)
         return null
     }
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
-        const error = 'Přihlášení selhalo - údaje neodpovídají'
-        console.log(error)
+        // const error = 'Přihlášení selhalo - údaje neodpovídají'
+        // console.log(error)
         return null
     }
     return user
