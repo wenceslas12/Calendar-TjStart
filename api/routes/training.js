@@ -113,7 +113,7 @@ router.delete('/:id/training/delete', authenticate, async (req, res) => {
         if (!training) {
             return res.status(404).send()
         }
-        res.redirect('/events/create');
+        res.redirect('/training/create');
     } catch (e) {
         res.status(500).send();
     }
